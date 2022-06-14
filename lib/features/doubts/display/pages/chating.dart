@@ -18,7 +18,6 @@ class Chating extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     XFile? pickedImage = Provider.of<ImagePickerProvider>(context).pickedImage;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(subject.toUpperCase()),
@@ -37,7 +36,7 @@ class Chating extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 60),
                     child: ListView.builder(
-                        // reverse: true,
+                        reverse: true,
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) {
                           // ignore: prefer_interpolation_to_compose_strings

@@ -10,15 +10,15 @@ import 'package:student_portal/features/doubts/data/datasources/doubtsDB.dart';
 class ImagePickerProvider extends ChangeNotifier {
   XFile? pickedImage;
   pickImageFromGallery() async {
-    final XFile? img =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    final XFile? img = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, imageQuality: 10);
     pickedImage = img;
     notifyListeners();
   }
 
   pickImageFromCamera() async {
-    final XFile? img =
-        await ImagePicker().pickImage(source: ImageSource.camera);
+    final XFile? img = await ImagePicker()
+        .pickImage(source: ImageSource.camera, imageQuality: 10);
     pickedImage = img;
     notifyListeners();
   }

@@ -7,7 +7,11 @@ import 'package:student_portal/features/doubts/data/datasources/doubtsDB.dart';
 import 'package:student_portal/features/doubts/display/providers/imagePickerProvider.dart';
 
 messageBox(
-    context, TextEditingController message, String subject, XFile? image) {
+  context,
+  TextEditingController message,
+  String subject,
+  XFile? image,
+) {
   return Align(
     alignment: Alignment.bottomCenter,
     child: Container(

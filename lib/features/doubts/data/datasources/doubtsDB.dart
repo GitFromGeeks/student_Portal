@@ -28,7 +28,7 @@ class DoubtsDB {
         .collection(subject + "_" + _doubtsCollection.id)
         .doc(username_phone)
         .collection(_doubtsCollection.id)
-        .orderBy('time')
+        .orderBy('time', descending: true)
         .snapshots();
   }
 

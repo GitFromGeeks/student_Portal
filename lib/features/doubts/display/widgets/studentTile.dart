@@ -2,41 +2,58 @@
 
 import 'package:flutter/material.dart';
 import 'package:student_portal/features/doubts/data/datasources/doubtsDB.dart';
+import 'package:student_portal/features/doubts/display/widgets/viewImage.dart';
 
 studentMessageTile(context, String sender, message, bool img, String docId,
     subject, username) {
-  return InkWell(
-    onLongPress: () {
-      unsentMessage(context, docId, subject, username);
-    },
-    child: Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: Align(
-            alignment: Alignment.topRight,
-            child: SizedBox(
-              child: Expanded(
-                child: Card(
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                    color: const Color.fromARGB(255, 146, 134, 134),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: (!img)
-                          ? Text(
-                              message,
-                              style: const TextStyle(color: Colors.black),
-                            )
-                          : SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.8,
-                              child: Image.network(message)),
-                    )),
+  return Hero(
+    tag: "ImageView",
+    child: InkWell(
+      onLongPress: () {
+        unsentMessage(context, docId, subject, username);
+      },
+      onTap: () {
+        if (img) {
+          //
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ImageView(image: message)));
+        }
+      },
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: SizedBox(
+                child: Expanded(
+                  child: Card(
+                      shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.0))),
+                      color: const Color.fromARGB(255, 146, 134, 134),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: (!img)
+                            ? Text(
+                                message,
+                                style: const TextStyle(color: Colors.black),
+                              )
+                            : SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.2,
+                                child: Image.network(
+                                  message,
+                                  fit: BoxFit.cover,
+                                )),
+                      )),
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }
