@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print, invalid_return_type_for_catch_error
 
 import 'dart:io';
 
@@ -36,7 +36,6 @@ class ImagePickerProvider extends ChangeNotifier {
       contentType: 'image/jpeg',
       customMetadata: {'picked-file-path': image.path},
     );
-    var bitImage = await image.readAsBytes();
     UploadTask uploadTask = ref.putFile(File(image.path), metaData);
     TaskSnapshot taskSnapshot = await uploadTask
         .whenComplete(
