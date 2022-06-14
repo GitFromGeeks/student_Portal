@@ -32,6 +32,18 @@ class DoubtsDB {
         .snapshots();
   }
 
+  //delete message
+  static Future<void> deleteMessage(
+      {required String docId, required subject, required username}) async {
+    _doubtsCollection
+        .doc(subject)
+        .collection(subject + "_" + _doubtsCollection.id)
+        .doc(username)
+        .collection(_doubtsCollection.id)
+        .doc(docId)
+        .delete();
+  }
+
   //sending message
   static Future<void> sendMessage(
       {required String subject,
