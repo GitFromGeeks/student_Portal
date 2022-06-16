@@ -5,7 +5,6 @@ import 'package:student_portal/features/doubts/display/pages/chating.dart';
 
 class Doubts extends StatelessWidget {
   const Doubts({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
