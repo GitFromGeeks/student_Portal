@@ -7,42 +7,58 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:student_portal/features/doubts/display/providers/imagePickerProvider.dart';
 
-pickedImageWidget(context, XFile? pickedImage) {
-  return Padding(
-    padding: const EdgeInsets.only(bottom: 100),
-    child: Align(
-      alignment: Alignment.bottomCenter,
-      child: (pickedImage == null)
-          ? Container()
-          : Stack(
-              children: [
-                Card(
-                  color: Colors.green[300],
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.2,
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.file(
-                        File(pickedImage.path),
-                        fit: BoxFit.fill,
+pickedImageWidget(context, XFile? pickedImage, String subject) {
+  return Align(
+    alignment: Alignment.bottomCenter,
+    child: (pickedImage == null)
+        ? Container()
+        : Stack(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Card(
+                    color: const Color.fromARGB(255, 157, 192, 160),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.file(
+                          File(pickedImage.path),
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                IconButton(
+                  IconButton(
+                      onPressed: () {
+                        Provider.of<ImagePickerProvider>(context, listen: false)
+                            .uploadImage(
+                                pickedImage, subject, "username+phone");
+                      },
+                      icon: const Icon(
+                        Icons.send,
+                        size: 40,
+                      ))
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: IconButton(
                     onPressed: () {
                       Provider.of<ImagePickerProvider>(context, listen: false)
                           .removePickedImage();
                     },
                     icon: const Icon(
-                      Icons.dangerous_outlined,
+                      Icons.highlight_remove_sharp,
                       size: 40,
+                      color: Colors.redAccent,
                     )),
-              ],
-            ),
-    ),
+              ),
+            ],
+          ),
   );
 }

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:student_portal/features/doubts/data/datasources/doubtsDB.dart';
-import 'package:student_portal/features/doubts/display/pages/doubts.dart';
 import 'package:student_portal/features/doubts/display/providers/imagePickerProvider.dart';
 import 'package:student_portal/features/doubts/display/providers/messageCountProvider.dart';
 import 'package:student_portal/features/doubts/display/widgets/messageBox.dart';
@@ -24,9 +23,6 @@ class Chating extends StatelessWidget {
       onWillPop: () async {
         Provider.of<MessageCountProvider>(context, listen: false)
             .updateLastCheckoutTime(subject);
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => Doubts()),
-            (route) => false);
         return true;
       },
       child: Scaffold(
@@ -76,7 +72,7 @@ class Chating extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 }),
-            pickedImageWidget(context, pickedImage),
+            pickedImageWidget(context, pickedImage, subject),
             // attachmentContainer(context),
             messageBox(context, messageController, subject, pickedImage)
           ],
