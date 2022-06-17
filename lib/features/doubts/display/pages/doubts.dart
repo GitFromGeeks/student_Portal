@@ -3,10 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:student_portal/features/doubts/data/datasources/doubtsDB.dart';
 import 'package:student_portal/features/doubts/display/pages/chating.dart';
-import 'package:student_portal/features/doubts/display/providers/messageCountProvider.dart';
 
 class Doubts extends StatelessWidget {
   Doubts({Key? key}) : super(key: key);
