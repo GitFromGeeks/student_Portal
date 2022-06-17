@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:provider/provider.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _doubtsCollection = _firestore.collection("doubts");
@@ -34,19 +33,26 @@ class DoubtsDB {
   }
 
   //count unseen messages
-  static Future<int> messageCount(
-      {context, required subject, required username}) async {
-    int count = 0;
-    _doubtsCollection
+  // static messageCount({context, required subject, required username}) async {
+  //   _doubtsCollection
+  //       .doc(subject)
+  //       .collection(subject + "_" + _doubtsCollection.id)
+  //       .doc(username)
+  //       .collection(_doubtsCollection.id)
+  //       .orderBy("time", descending: true)
+  //       .limit(1)
+  //       .get()
+  //       .then((snap) {});
+  // }
+  static Stream<QuerySnapshot> messageCount(String username, subject) {
+    return _doubtsCollection
         .doc(subject)
         .collection(subject + "_" + _doubtsCollection.id)
         .doc(username)
         .collection(_doubtsCollection.id)
-        .get()
-        .then((snap) {
-      count = snap.size;
-    });
-    return count;
+        .orderBy('time', descending: true)
+        .limit(1)
+        .snapshots();
   }
 
   //delete message

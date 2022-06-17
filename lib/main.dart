@@ -1,10 +1,20 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:student_portal/features/doubts/data/datasources/messageCountStorage.dart';
 import 'package:student_portal/features/doubts/display/pages/doubts.dart';
 import 'package:student_portal/features/doubts/display/providers/imagePickerProvider.dart';
+import 'package:student_portal/features/doubts/display/providers/messageCountProvider.dart';
 
-void main() async {
+late Box box;
+
+Future<void> main() async {
+  await Hive.initFlutter();
+  if (!Hive.isAdapterRegistered(1)) {
+    Hive.registerAdapter<MessageCountStorage>(MessageCountStorageAdapter());
+  }
+  box = await Hive.openBox("box");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       name: "Student Portal",
@@ -26,12 +36,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => ImagePickerProvider())
+        ChangeNotifierProvider(create: (context) => ImagePickerProvider()),
+        ChangeNotifierProvider(create: (context) => MessageCountProvider()),
       ],
       child: MaterialApp(
         title: "Student Portal",
         theme: ThemeData.dark(),
-        home: const Doubts(),
+        home: Doubts(),
         debugShowCheckedModeBanner: false,
       ),
     );
