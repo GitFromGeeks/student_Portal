@@ -84,18 +84,20 @@ Widget subjectCard(context, String subject, DateTime? lastCheckoutTime) {
                                       .microsecondsSinceEpoch)
                                   .isAfter(DateTime.fromMicrosecondsSinceEpoch(
                                       lastCheckoutTime.microsecondsSinceEpoch)))
-                                const Padding(
-                                  padding: EdgeInsets.only(right: 15),
-                                  child: CircleAvatar(
-                                    maxRadius: 10,
-                                    backgroundColor:
-                                        Color.fromARGB(255, 0, 237, 12),
-                                    child: Text(
-                                      "+1",
-                                      style: TextStyle(color: Colors.white),
+                                if (snapshot.data!.docs[0]['senderID'] ==
+                                    "${subject}_admin")
+                                  const Padding(
+                                    padding: EdgeInsets.only(right: 15),
+                                    child: CircleAvatar(
+                                      maxRadius: 10,
+                                      backgroundColor:
+                                          Color.fromARGB(255, 0, 237, 12),
+                                      child: Text(
+                                        "+1",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
-                                  ),
-                                )
+                                  )
                       ],
                     ),
                   ),
