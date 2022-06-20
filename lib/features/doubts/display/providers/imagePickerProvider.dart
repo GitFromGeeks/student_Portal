@@ -9,10 +9,16 @@ import 'package:student_portal/features/doubts/data/datasources/doubtsDB.dart';
 
 class ImagePickerProvider extends ChangeNotifier {
   XFile? pickedImage;
+  bool uploading = false;
   pickImageFromGallery() async {
     final XFile? img = await ImagePicker()
         .pickImage(source: ImageSource.gallery, imageQuality: 10);
     pickedImage = img;
+    notifyListeners();
+  }
+
+  changeUploadingStatus(bool isIt) async {
+    uploading = isIt;
     notifyListeners();
   }
 
@@ -44,6 +50,7 @@ class ImagePickerProvider extends ChangeNotifier {
     String imgUrl = await taskSnapshot.ref.getDownloadURL();
     sendMessageProvider(subject, usernamePhone, imgUrl);
     pickedImage = null;
+    uploading = false;
     notifyListeners();
   }
 
